@@ -1,8 +1,12 @@
+import Acomodacao from "../modelos/acomodacao"
 import Cliente from "../modelos/cliente"
+import Hospedagem from "../modelos/hospedagem"
 
 export default class Armazem {
     private static instancia: Armazem
     private clientes: Cliente[] = []
+    private acomodacoes: Acomodacao[] = []
+    private hospedagensAtuais: Hospedagem[] = []
     private ultimoId = 0
 
     private constructor() { }
@@ -28,6 +32,26 @@ export default class Armazem {
         return this.clientes
     }
 
+    public cadastrarAcomodacao(acomodacao: Acomodacao): void {
+        this.acomodacoes.push(acomodacao)
+    }
+
+    public obterAcomodacoes(): Acomodacao[] {
+        return this.acomodacoes
+    }
+
+    public cadastrarHospedagem(hospedagem: Hospedagem): void {
+        this.hospedagensAtuais.push(hospedagem)
+    }
+
+    public obterHospedagensAtuais(): Hospedagem[] {
+        return this.hospedagensAtuais
+    }
+
+    public clienteEstaHospedado(id: number): boolean {
+        return this.hospedagensAtuais.some(hospedagem => hospedagem.contemHospede(id))
+    }
+
     public buscarClientePorId(id: number): Cliente | undefined {
         return this.clientes.find(cliente => cliente.id === id)
     }
@@ -43,6 +67,10 @@ export default class Armazem {
     public removerCliente(id: number): boolean {
         const cliente = this.buscarClientePorId(id)
         if (!cliente) {
+            return false
+        }
+
+        if (this.clienteEstaHospedado(id)) {
             return false
         }
 
