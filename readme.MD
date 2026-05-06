@@ -41,3 +41,9 @@ Saída esperada:
 ```bash
 npm start
 ```
+
+### Status do CI
+
+Este projeto possui CI com GitHub Actions em modo multi-OS. A cada push, o pipeline instala dependências, compila o TypeScript e executa o sistema em Linux, Windows e macOS. Com o badge em verde, fica visível que o projeto foi testado e passou nos 3 sistemas operacionais.
+
+[![Multi-OS CI](https://github.com/SarahBatagioti/AV3-TPII/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/SarahBatagioti/AV3-TPII/actions/workflows/ci.yml?query=branch%3Amain)

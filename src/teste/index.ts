@@ -13,33 +13,6 @@ import ListarTitularDeDependente from "../processos/listarTitularDeDependente"
 import RemoverCliente from "../processos/removerCliente"
 import Entrada from "./entrada"
 
-const ANSI_TEXTO = '\x1b[34m'
-const ANSI_RESET = '\x1b[0m'
-
-function validar(): void {
-    if (!process.stdout.isTTY) {
-        return
-    }
-
-    process.stdout.write(ANSI_TEXTO)
-}
-
-function validarReset(): void {
-    if (!process.stdout.isTTY) {
-        return
-    }
-
-    process.stdout.write(ANSI_RESET)
-}
-
-validar()
-
-process.on('exit', validarReset)
-process.on('SIGINT', () => {
-    validarReset()
-    process.exit(0)
-})
-
 carregarDadosIniciais()
 
 const emCI = !!process.env.CI && process.env.CI.toLowerCase() !== 'false'
